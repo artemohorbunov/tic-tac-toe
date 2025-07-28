@@ -21,10 +21,40 @@ public class Board {
 		}
 	}
 
-	public boolean checkWin() { // DO NEXT
-		for (int i = 0; i < board.size(); i++) {
-
+	public boolean checkWin(char symbol) {
+		// Check first row 1,2,3
+		if (board.get(0) == symbol && board.get(1) == symbol && board.get(2) == symbol) {
+			return true;
 		}
+		// Check second row 4,5,6
+		if (board.get(3) == symbol && board.get(4) == symbol && board.get(5) == symbol) {
+			return true;
+		}
+		// Check third row 7,8,9
+		if (board.get(6) == symbol && board.get(7) == symbol && board.get(8) == symbol) {
+			return true;
+		}
+		// Check first column 1,4,7
+		if (board.get(0) == symbol && board.get(3) == symbol && board.get(6) == symbol) {
+			return true;
+		}
+		// Check second column 2,5,8
+		if (board.get(1) == symbol && board.get(4) == symbol && board.get(7) == symbol) {
+			return true;
+		}
+		// Check third column 3,6,9
+		if (board.get(2) == symbol && board.get(5) == symbol && board.get(8) == symbol) {
+			return true;
+		}
+		// Check diagonal 1,5,9
+		if (board.get(0) == symbol && board.get(4) == symbol && board.get(8) == symbol) {
+			return true;
+		}
+		// Check diagonal 3,5,7
+		if (board.get(2) == symbol && board.get(4) == symbol && board.get(6) == symbol) {
+			return true;
+		}
+
 		return false;
 	}
 
@@ -39,19 +69,20 @@ public class Board {
 	public boolean isFull() { // DO NEXT
 		return false;
 	}
-	
+
 	public boolean makeMove(int position, char symbol) {
-	    if (isOpen(position)) {
-	        board.set(position, symbol);
-	        return true;                 // move accepted
-	    } else {
-	        System.out.println("\nThat square is already filled!");
-	        return false;                // move rejected
-	    }
+		position--; // Change position to reflect 0-based indexing
+		if (isOpen(position)) {
+			board.set(position, symbol);
+			return true; // move accepted
+		} else {
+			System.out.println("\nThat square is already filled!");
+			return false; // move rejected
+		}
 	}
 
-
-	public void computersMove(char opponentsSymbol) { // Randomly pick an index from board and make a move if it's open
+	public boolean computersMove(char opponentsSymbol) { // Randomly pick an index from board and make a move if it's
+															// open
 		if (opponentsSymbol == 'X') {
 			computersSymbol = 'O';
 		} else {
@@ -59,9 +90,15 @@ public class Board {
 		}
 		do {
 			random = (int) (Math.random() * board.size()); // Generate a random number 0-8
-			isOpen(random);
 		} while (!isOpen(random));
-		makeMove(random, computersSymbol);
+		makeMove(random + 1, computersSymbol); // +1 because makeMove() uses 1-based indexing
+		boolean pcWin = checkWin(computersSymbol);
+		if (pcWin) {
+			System.out.println("\nComputer player " + computersSymbol + " WON!");
+			displayBoard();
+			return true;
+		}
+		return false;
 	}
 
 	public ArrayList<Character> getBoard() {

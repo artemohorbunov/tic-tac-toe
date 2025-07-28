@@ -16,12 +16,19 @@ public class TicTacToeRunner {
 			board.displayBoard();
 			System.out.print("\nEnter a position from 1-9: ");
 			int position = input.nextInt();
-			position--;
 			boolean userMoved = board.makeMove(position, playerSymbol); // User move
-			if (userMoved) { // Only let PC make a move if a user successfully moved
-				board.computersMove(playerSymbol); // PC move
+			boolean win = board.checkWin(playerSymbol); // Check if there's a win
+			if (win) {
+				System.out.println("\nPlayer " + playerSymbol + " WON!");
+				board.displayBoard();
+				break;
 			}
-		} while (!board.checkWin());
+			if (userMoved && !win) { // Only let PC make a move if a user successfully moved and there isn't a win
+				if (board.computersMove(playerSymbol)) { // PC move
+					break;
+				}
+			}
+		} while (!board.checkWin(playerSymbol));
 
 	}
 
