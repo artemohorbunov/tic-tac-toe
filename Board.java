@@ -66,8 +66,14 @@ public class Board {
 		}
 	}
 
-	public boolean isFull() { // DO NEXT
-		return false;
+	public boolean isFull() {
+		for (Character c : board) {
+			if (Character.isDigit(c)) { // If true this spot isn't filled
+				return false;
+			}
+		}
+		System.out.println("\nBoard is now full!");
+		return true;
 	}
 
 	public boolean makeMove(int position, char symbol) {
@@ -95,17 +101,8 @@ public class Board {
 		boolean pcWin = checkWin(computersSymbol);
 		if (pcWin) {
 			System.out.println("\nComputer player " + computersSymbol + " WON!");
-			displayBoard();
 			return true;
 		}
 		return false;
-	}
-
-	public ArrayList<Character> getBoard() {
-		return board;
-	}
-
-	public void setBoard(ArrayList<Character> board) {
-		this.board = board;
 	}
 }

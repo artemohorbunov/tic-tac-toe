@@ -7,6 +7,8 @@ public class TicTacToeRunner {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Welcome to Tic Tac Toe!");
 		char playerSymbol;
+		boolean win;
+		boolean full;
 		do {
 			System.out.print("\nWould you like to play for X or O ?: ");
 			playerSymbol = input.next().charAt(0);
@@ -17,19 +19,23 @@ public class TicTacToeRunner {
 			System.out.print("\nEnter a position from 1-9: ");
 			int position = input.nextInt();
 			boolean userMoved = board.makeMove(position, playerSymbol); // User move
-			boolean win = board.checkWin(playerSymbol); // Check if there's a win
+			win = board.checkWin(playerSymbol); // Check if there's a win
+			full = board.isFull(); // Check if board is full
+			if (full && !win) {
+				System.out.println("Draw!");
+			}
 			if (win) {
-				System.out.println("\nPlayer " + playerSymbol + " WON!");
-				board.displayBoard();
+				System.out.println("\nPlayer " + playerSymbol + " WON!" );
 				break;
 			}
-			if (userMoved && !win) { // Only let PC make a move if a user successfully moved and there isn't a win
+			// Let PC move if a user successfully moved and there isn't a win or full-board
+			if (userMoved && !win && !full) {
 				if (board.computersMove(playerSymbol)) { // PC move
 					break;
 				}
 			}
-		} while (!board.checkWin(playerSymbol));
-
+		} while (!win && !full);
+		board.displayBoard();
+		input.close();
 	}
-
 }
