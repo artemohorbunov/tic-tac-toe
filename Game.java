@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Game {
-	char player2Symbol;
+	private char player2Symbol;
 	private int random;
 	private Board board;
 
@@ -101,7 +101,7 @@ public class Game {
 		makeMove(random + 1, player2Symbol); // +1 because makeMove() uses 1-based indexing
 		boolean pcWin = checkWin(player2Symbol);
 		if (pcWin) {
-			System.out.println("\nComputer player " + player2Symbol + " WON!");
+		//	System.out.println("\nComputer player " + player2Symbol + " WON!");
 			return true;
 		}
 		return false;

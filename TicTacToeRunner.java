@@ -36,14 +36,13 @@ public class TicTacToeRunner {
 			if (full && !win) {
 				System.out.println("Draw!");
 			}
-			if (win) {
-				System.out.println("\nPlayer " + player1Symbol + " WON!");
-				break;
-			}
+			congratulations(win, player1Symbol);
 			// Let PC move if a user successfully moved and there isn't a win or full-board
 			// Skip PC move if user chose another player mode 2
 			if (userMoved && !win && !full && mode == 1) {
-				if (game.computersMove(player1Symbol)) { // PC move
+				win = game.computersMove(player1Symbol);
+				if (win) { // PC move
+					congratulations(win, game.getPlayer2Symbol());
 					break; // If PC won break out of the game loop
 				}
 			}
@@ -53,9 +52,19 @@ public class TicTacToeRunner {
 				int position = input.nextInt();
 				game.changeSymbol(player1Symbol);
 				game.makeMove(position, game.getPlayer2Symbol());
+				win = game.checkWin(game.getPlayer2Symbol()); // Check if there's a win
+				congratulations(win, game.getPlayer2Symbol());
 			}
 		} while (!win && !full);
 		board.displayBoard();
 		input.close();
+	}
+	
+	private static boolean congratulations(boolean winner, char symbol) {
+		if (winner) {
+			System.out.println("\nPlayer " + symbol + " WON!");
+			return true;
+		}
+		return false;
 	}
 }
