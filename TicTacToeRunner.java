@@ -5,6 +5,7 @@ public class TicTacToeRunner {
 
 	public static void main(String[] args) {
 		Board board = new Board();
+		Game game = new Game(board); // Passing existing board to game class
 		Scanner input = new Scanner(System.in);
 		System.out.print("Welcome to Tic Tac Toe!");
 		char playerSymbol;
@@ -21,14 +22,14 @@ public class TicTacToeRunner {
 			try {
 				System.out.print("\nEnter a position from 1-9: ");
 				int position = input.nextInt();
-				userMoved = board.makeMove(position, playerSymbol); // User move
+				userMoved = game.makeMove(position, playerSymbol); // User move
 				// If user inputs anything other than numbers 1-9 this will catch it
 			} catch (InputMismatchException | IndexOutOfBoundsException e) {
 				System.out.println("\nOnly numbers from 1-9!");
 				input.nextLine(); // Clear the buffer to avoid an infinite loop
 			}
-			win = board.checkWin(playerSymbol); // Check if there's a win
-			full = board.isFull(); // Check if board is full
+			win = game.checkWin(playerSymbol); // Check if there's a win
+			full = game.isFull(); // Check if board is full
 			if (full && !win) {
 				System.out.println("Draw!");
 			}
@@ -38,7 +39,7 @@ public class TicTacToeRunner {
 			}
 			// Let PC move if a user successfully moved and there isn't a win or full-board
 			if (userMoved && !win && !full) {
-				if (board.computersMove(playerSymbol)) { // PC move
+				if (game.computersMove(playerSymbol)) { // PC move
 					break;
 				}
 			}
