@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
 public class Game {
-	private char computersSymbol;
+	char player2Symbol;
 	private int random;
 	private Board board;
-	Game(Board board){
+
+	Game(Board board) {
 		this.board = board;
 	}
 
@@ -82,23 +83,31 @@ public class Game {
 		}
 	}
 
-	public boolean computersMove(char opponentsSymbol) {
-		// Randomly pick an index from board and make a move if it's open
-		if (opponentsSymbol == 'X') {
-			computersSymbol = 'O';
+	public void changeSymbol(char player1Symbol) { // Handle turns for both PC and 2nd player
+		if (player1Symbol == 'X') {
+			player2Symbol = 'O';
 		} else {
-			computersSymbol = 'X';
+			player2Symbol = 'X';
 		}
+	}
+
+	public boolean computersMove(char player1Symbol) {
+		// Randomly pick an index from board and make a move if it's open
+		changeSymbol(player1Symbol);
 		do {
 			random = (int) (Math.random() * ((ArrayList<Character>) board.getBoard()).size()); // Generate a random
 																								// number 0-8
 		} while (!isOpen(random));
-		makeMove(random + 1, computersSymbol); // +1 because makeMove() uses 1-based indexing
-		boolean pcWin = checkWin(computersSymbol);
+		makeMove(random + 1, player2Symbol); // +1 because makeMove() uses 1-based indexing
+		boolean pcWin = checkWin(player2Symbol);
 		if (pcWin) {
-			System.out.println("\nComputer player " + computersSymbol + " WON!");
+			System.out.println("\nComputer player " + player2Symbol + " WON!");
 			return true;
 		}
 		return false;
+	}
+
+	public char getPlayer2Symbol() {
+		return player2Symbol;
 	}
 }
