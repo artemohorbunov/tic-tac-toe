@@ -1,10 +1,11 @@
 # CLI Tic Tac Toe
 
-A simple console-based implementation of the classic **Tic Tac Toe** game written in Java. Play against a basic computer opponent directly in your terminal.
+A simple console-based implementation of the classic **Tic Tac Toe** game written in Java. Play against a basic computer opponent or another player directly in your terminal.
 
 ## 📌 Features
 
-- Player vs Computer mode
+- PvE (Player vs Environment) mode
+- PvP (Player vs Player) mode
 - Turn-based gameplay
 - Input validation and error handling
 - Win and draw detection
@@ -40,12 +41,11 @@ A simple console-based implementation of the classic **Tic Tac Toe** game writte
 
 ## 🧩 Game Logic
 
-* The game ends when either the player or the computer wins
+* The game ends when either one of the players (in PvP mode) or the computer (in PvE mode) wins
 * If the board is filled without a winner, the game is declared a draw
 
 ## 🚧 Future Improvements
 
-* Player vs Player mode
 * GUI version (JavaFX or Swing)
 * Score tracking or stats
 
