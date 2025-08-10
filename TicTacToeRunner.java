@@ -46,7 +46,7 @@ public class TicTacToeRunner {
 					break; // If PC won break out of the game loop
 				}
 			}
-			if (mode == 2) { // Handles second player logic
+			if (mode == 2 && !win && !full) { // Handles second player logic
 				board.displayBoard();
 				System.out.print("\nSecond player enter a position from 1-9: ");
 				int position = input.nextInt();

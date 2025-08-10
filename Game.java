@@ -101,7 +101,6 @@ public class Game {
 		makeMove(random + 1, player2Symbol); // +1 because makeMove() uses 1-based indexing
 		boolean pcWin = checkWin(player2Symbol);
 		if (pcWin) {
-		//	System.out.println("\nComputer player " + player2Symbol + " WON!");
 			return true;
 		}
 		return false;
